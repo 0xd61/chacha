@@ -45,7 +45,7 @@ rotl_uint32(uint32 x, uint32 n) {
 }
 
 static void
-quater_round(uint32 *a_, uint32 *b_, uint32 *c_, uint32 *d_)
+quarter_round(uint32 *a_, uint32 *b_, uint32 *c_, uint32 *d_)
 {
     uint32 a = *a_;
     uint32 b = *b_;
@@ -66,7 +66,7 @@ quater_round(uint32 *a_, uint32 *b_, uint32 *c_, uint32 *d_)
 static uint32
 pack4_uint8(uint8 *src)
 {
-    // NOTE(dgl): values are stored in little Endian order
+    // NOTE(dgl): values are stored in little endian order
     uint32 result = 0;
     result = (uint32)((src[3] << 24) |
                     (src[2] << 16) |
@@ -128,14 +128,14 @@ build_block(uint8 *key, uint8 *nonce, uint32 counter, uint32 *matrix, int32 roun
     while(rounds > 0)
     {
         rounds -= 2;
-        quater_round(temp_m + 0, temp_m + 4, temp_m +  8, temp_m + 12);
-        quater_round(temp_m + 1, temp_m + 5, temp_m +  9, temp_m + 13);
-        quater_round(temp_m + 2, temp_m + 6, temp_m + 10, temp_m + 14);
-        quater_round(temp_m + 3, temp_m + 7, temp_m + 11, temp_m + 15);
-        quater_round(temp_m + 0, temp_m + 5, temp_m + 10, temp_m + 15);
-        quater_round(temp_m + 1, temp_m + 6, temp_m + 11, temp_m + 12);
-        quater_round(temp_m + 2, temp_m + 7, temp_m +  8, temp_m + 13);
-        quater_round(temp_m + 3, temp_m + 4, temp_m +  9, temp_m + 14);
+        quarter_round(temp_m + 0, temp_m + 4, temp_m +  8, temp_m + 12);
+        quarter_round(temp_m + 1, temp_m + 5, temp_m +  9, temp_m + 13);
+        quarter_round(temp_m + 2, temp_m + 6, temp_m + 10, temp_m + 14);
+        quarter_round(temp_m + 3, temp_m + 7, temp_m + 11, temp_m + 15);
+        quarter_round(temp_m + 0, temp_m + 5, temp_m + 10, temp_m + 15);
+        quarter_round(temp_m + 1, temp_m + 6, temp_m + 11, temp_m + 12);
+        quarter_round(temp_m + 2, temp_m + 7, temp_m +  8, temp_m + 13);
+        quarter_round(temp_m + 3, temp_m + 4, temp_m +  9, temp_m + 14);
     }
 
     for(int32 index = 0; index < array_count(temp_m); ++index)
